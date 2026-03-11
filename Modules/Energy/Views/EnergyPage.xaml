@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="HomeAppLBO.Modules.Energy.Views.EnergyPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Énergie"
+    BackgroundColor="{StaticResource SurfacePage}">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="20,16,20,30"
+            Spacing="18">
+
+            <Border
+                Padding="20"
+                BackgroundColor="{StaticResource SurfaceCard}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 24">
+                <VerticalStackLayout Spacing="8">
+                    <Label
+                        Text="Énergie"
+                        FontSize="28"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextPrimary}" />
+
+                    <Label
+                        Text="Suivi énergétique de la maison"
+                        FontSize="15"
+                        TextColor="{StaticResource TextSecondary}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Padding="18"
+                BackgroundColor="{StaticResource SurfaceCard}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 24">
+                <VerticalStackLayout Spacing="14">
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <Border
+                            Grid.Column="0"
+                            Padding="14"
+                            BackgroundColor="{StaticResource SurfaceCardAlt}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 18">
+                            <VerticalStackLayout Spacing="4">
+                                <Label
+                                    Text="Aujourd’hui"
+                                    FontSize="13"
+                                    TextColor="{StaticResource TextSecondary}" />
+                                <Label
+                                    Text="{Binding TodayConsumption}"
+                                    FontSize="24"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource TextPrimary}" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border
+                            Grid.Column="1"
+                            Padding="14"
+                            BackgroundColor="{StaticResource SurfaceCardAlt}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 18">
+                            <VerticalStackLayout Spacing="4">
+                                <Label
+                                    Text="Semaine"
+                                    FontSize="13"
+                                    TextColor="{StaticResource TextSecondary}" />
+                                <Label
+                                    Text="{Binding WeekConsumption}"
+                                    FontSize="24"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource TextPrimary}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <Border
+                            Grid.Column="0"
+                            Padding="14"
+                            BackgroundColor="{StaticResource SurfaceCardAlt}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 18">
+                            <VerticalStackLayout Spacing="4">
+                                <Label
+                                    Text="Maison"
+                                    FontSize="13"
+                                    TextColor="{StaticResource TextSecondary}" />
+                                <Label
+                                    Text="{Binding IndoorTemperature}"
+                                    FontSize="24"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource TextPrimary}" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border
+                            Grid.Column="1"
+                            Padding="14"
+                            BackgroundColor="{StaticResource SurfaceCardAlt}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 18">
+                            <VerticalStackLayout Spacing="4">
+                                <Label
+                                    Text="PAC"
+                                    FontSize="13"
+                                    TextColor="{StaticResource TextSecondary}" />
+                                <Label
+                                    Text="{Binding HeatPumpStatus}"
+                                    FontSize="20"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource TextPrimary}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+
+                    <Button
+                        Text="Actualiser"
+                        Clicked="OnRefreshClicked"
+                        BackgroundColor="{StaticResource AccentPrimary}"
+                        TextColor="{StaticResource TextDark}"
+                        CornerRadius="16"
+                        HeightRequest="48"
+                        FontAttributes="Bold" />
+                </VerticalStackLayout>
+            </Border>
+
+            <VerticalStackLayout Spacing="10">
+                <Label
+                    Text="Éléments énergie"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource TextPrimary}" />
+
+                <CollectionView
+                    ItemsSource="{Binding Devices}"
+                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Margin="0,0,0,12"
+                                Padding="18"
+                                BackgroundColor="{StaticResource SurfaceCard}"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 22">
+
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                    <Border
+                                        WidthRequest="48"
+                                        HeightRequest="48"
+                                        BackgroundColor="{StaticResource SurfaceCardAlt}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 14">
+                                        <Label
+                                            Text="{Binding Icon}"
+                                            FontSize="24"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center" />
+                                    </Border>
+
+                                    <VerticalStackLayout
+                                        Grid.Column="1"
+                                        Spacing="2">
+                                        <Label
+                                            Text="{Binding Name}"
+                                            FontSize="18"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource TextPrimary}" />
+                                        <Label
+                                            Text="{Binding Location}"
+                                            FontSize="13"
+                                            TextColor="{StaticResource TextSecondary}" />
+                                        <Label
+                                            Text="{Binding DetailText}"
+                                            FontSize="12"
+                                            TextColor="{StaticResource TextSecondary}" />
+                                    </VerticalStackLayout>
+
+                                    <Border
+                                        Grid.Column="2"
+                                        Padding="10,6"
+                                        BackgroundColor="{StaticResource SurfaceCardAlt}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 14"
+                                        VerticalOptions="Center">
+                                        <Label
+                                            Text="{Binding StatusText}"
+                                            FontSize="12"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource TextPrimary}" />
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="10">
+                <Label
+                    Text="Historique 7 jours"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource TextPrimary}" />
+
+                <CollectionView
+                    ItemsSource="{Binding History}"
+                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Margin="0,0,0,12"
+                                Padding="16"
+                                BackgroundColor="{StaticResource SurfaceCard}"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 20">
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                                    <Label
+                                        Text="{Binding DayLabel}"
+                                        FontSize="16"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource TextPrimary}" />
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding ValueText}"
+                                        FontSize="15"
+                                        TextColor="{StaticResource TextSecondary}" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

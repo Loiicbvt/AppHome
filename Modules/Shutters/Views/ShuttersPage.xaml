@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="HomeAppLBO.Modules.Shutters.Views.ShuttersPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Volets"
+    BackgroundColor="{StaticResource SurfacePage}">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="20,20,20,30"
+            Spacing="20">
+
+            <!-- HEADER -->
+
+            <Border
+                Padding="20"
+                BackgroundColor="{StaticResource SurfaceCard}"
+                StrokeShape="RoundRectangle 24">
+
+                <VerticalStackLayout Spacing="6">
+
+                    <Label
+                        Text="Volets roulants"
+                        FontSize="28"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextPrimary}" />
+
+                    <Label
+                        Text="Contrôle des chambres, du salon et de la cuisine"
+                        FontSize="14"
+                        TextColor="{StaticResource TextSecondary}" />
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- SCÉNARIOS -->
+
+            <VerticalStackLayout Spacing="10">
+
+                <Label
+                    Text="Scénarios"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource TextPrimary}" />
+
+                <CollectionView
+                    ItemsSource="{Binding Scenarios}"
+                    ItemsLayout="HorizontalList"
+                    HeightRequest="110"
+                    SelectionMode="None">
+
+                    <CollectionView.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <Border
+                                Margin="0,0,12,0"
+                                Padding="16"
+                                BackgroundColor="{StaticResource SurfaceCard}"
+                                StrokeShape="RoundRectangle 20">
+
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnScenarioClicked"/>
+                                </Border.GestureRecognizers>
+
+                                <VerticalStackLayout
+                                    WidthRequest="120"
+                                    Spacing="6">
+
+                                    <Label
+                                        Text="{Binding Icon}"
+                                        FontSize="26"/>
+
+                                    <Label
+                                        Text="{Binding Name}"
+                                        FontSize="16"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource TextPrimary}"/>
+
+                                </VerticalStackLayout>
+
+                            </Border>
+
+                        </DataTemplate>
+
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+            </VerticalStackLayout>
+
+            <!-- LISTE DES VOLETS -->
+
+            <VerticalStackLayout Spacing="10">
+
+                <Label
+                    Text="Pièces"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource TextPrimary}" />
+
+                <CollectionView
+                    ItemsSource="{Binding Shutters}"
+                    SelectionMode="None">
+
+                    <CollectionView.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <Frame
+                                BackgroundColor="{StaticResource SurfaceCard}"
+                                CornerRadius="24"
+                                Padding="18"
+                                BorderColor="{StaticResource OutlineSoft}"
+                                HasShadow="True"
+                                Margin="0,0,0,12">
+
+                                <VerticalStackLayout Spacing="16">
+
+                                    <!-- NOM PIECE -->
+
+                                    <Grid
+                                        ColumnDefinitions="Auto,*,Auto"
+                                        ColumnSpacing="12">
+
+                                        <Border
+                                            WidthRequest="48"
+                                            HeightRequest="48"
+                                            BackgroundColor="{StaticResource SurfaceCardAlt}"
+                                            StrokeShape="RoundRectangle 14">
+
+                                            <Label
+                                                Text="🪟"
+                                                FontSize="24"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center"
+                                                TextColor="{StaticResource TextPrimary}"/>
+
+                                        </Border>
+
+                                        <VerticalStackLayout
+                                            Grid.Column="1"
+                                            Spacing="2">
+
+                                            <Label
+                                                Text="{Binding RoomName}"
+                                                FontSize="18"
+                                                FontAttributes="Bold"
+                                                TextColor="{StaticResource TextPrimary}"/>
+
+                                            <Label
+                                                Text="{Binding Name}"
+                                                FontSize="13"
+                                                TextColor="{StaticResource TextSecondary}"/>
+
+                                        </VerticalStackLayout>
+
+                                        <Border
+                                            Grid.Column="2"
+                                            Padding="10,6"
+                                            BackgroundColor="{StaticResource SurfaceCardAlt}"
+                                            StrokeShape="RoundRectangle 14"
+                                            VerticalOptions="Center">
+
+                                            <Label
+                                                Text="{Binding StatusText}"
+                                                FontSize="12"
+                                                FontAttributes="Bold"
+                                                TextColor="{StaticResource TextPrimary}"/>
+
+                                        </Border>
+
+                                    </Grid>
+
+                                    <!-- POSITION -->
+
+                                    <VerticalStackLayout Spacing="6">
+
+                                        <Grid ColumnDefinitions="Auto,*,Auto">
+
+                                            <Label
+                                                Text="Fermé"
+                                                FontSize="12"
+                                                TextColor="{StaticResource TextSecondary}"/>
+
+                                            <Label
+                                                Grid.Column="2"
+                                                Text="Ouvert"
+                                                FontSize="12"
+                                                TextColor="{StaticResource TextSecondary}"/>
+
+                                        </Grid>
+
+                                        <ProgressBar
+                                            Progress="{Binding Position, Converter={StaticResource PercentToProgressConverter}}"
+                                            HeightRequest="10"
+                                            BackgroundColor="{StaticResource SurfaceCardAlt}"
+                                            ProgressColor="{StaticResource AccentPrimary}" />
+
+                                        <Label
+                                            Text="{Binding Position, StringFormat='Position : {0}%'}"
+                                            FontSize="12"
+                                            HorizontalOptions="End"
+                                            TextColor="{StaticResource TextSecondary}"/>
+
+                                    </VerticalStackLayout>
+
+                                    <!-- BOUTONS -->
+
+                                    <Grid
+                                        ColumnDefinitions="*,*,*"
+                                        ColumnSpacing="10">
+
+                                        <Button
+                                            Grid.Column="0"
+                                            Text="Ouvrir"
+                                            Clicked="OnOpenClicked"
+                                            BackgroundColor="{StaticResource AccentPrimary}"
+                                            TextColor="{StaticResource TextDark}"
+                                            CornerRadius="16"
+                                            HeightRequest="48"
+                                            FontAttributes="Bold"/>
+
+                                        <Button
+                                            Grid.Column="1"
+                                            Text="Stop"
+                                            Clicked="OnStopClicked"
+                                            BackgroundColor="{StaticResource ActionNeutral}"
+                                            TextColor="{StaticResource TextPrimary}"
+                                            CornerRadius="16"
+                                            HeightRequest="48"/>
+
+                                        <Button
+                                            Grid.Column="2"
+                                            Text="Fermer"
+                                            Clicked="OnCloseClicked"
+                                            BackgroundColor="{StaticResource ActionDanger}"
+                                            TextColor="{StaticResource TextPrimary}"
+                                            CornerRadius="16"
+                                            HeightRequest="48"
+                                            FontAttributes="Bold"/>
+
+                                    </Grid>
+
+                                </VerticalStackLayout>
+
+                            </Frame>
+
+                        </DataTemplate>
+
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

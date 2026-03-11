@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="HomeAppLBO.Modules.Lights.Views.LightsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Lumières"
+    BackgroundColor="{StaticResource SurfacePage}">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="20,16,20,30"
+            Spacing="18">
+
+            <Border
+                Padding="20"
+                BackgroundColor="{StaticResource SurfaceCard}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 24">
+                <VerticalStackLayout Spacing="8">
+                    <Label
+                        Text="Lumières"
+                        FontSize="28"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextPrimary}" />
+
+                    <Label
+                        Text="Simulation des éclairages de la maison"
+                        FontSize="15"
+                        TextColor="{StaticResource TextSecondary}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <CollectionView
+                ItemsSource="{Binding Lights}"
+                SelectionMode="None">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Margin="0,0,0,12"
+                            Padding="18"
+                            BackgroundColor="{StaticResource SurfaceCard}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 22">
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnLightCardTapped" />
+                            </Border.GestureRecognizers>
+
+                            <VerticalStackLayout Spacing="16">
+
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                    <Border
+                                        WidthRequest="48"
+                                        HeightRequest="48"
+                                        BackgroundColor="{StaticResource SurfaceCardAlt}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 14">
+                                        <Label
+                                            Text="💡"
+                                            FontSize="24"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center" />
+                                    </Border>
+
+                                    <VerticalStackLayout
+                                        Grid.Column="1"
+                                        Spacing="2">
+                                        <Label
+                                            Text="{Binding RoomName}"
+                                            FontSize="18"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource TextPrimary}" />
+
+                                        <Label
+                                            Text="{Binding Name}"
+                                            FontSize="13"
+                                            TextColor="{StaticResource TextSecondary}" />
+                                    </VerticalStackLayout>
+
+                                    <Border
+                                        Grid.Column="2"
+                                        Padding="10,6"
+                                        BackgroundColor="{StaticResource SurfaceCardAlt}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 14"
+                                        VerticalOptions="Center">
+                                        <Label
+                                            Text="{Binding StatusText}"
+                                            FontSize="12"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource TextPrimary}" />
+                                    </Border>
+                                </Grid>
+
+                                <VerticalStackLayout Spacing="6">
+                                    <Grid ColumnDefinitions="Auto,*,Auto">
+                                        <Label
+                                            Text="0%"
+                                            FontSize="12"
+                                            TextColor="{StaticResource TextSecondary}" />
+
+                                        <Label
+                                            Grid.Column="2"
+                                            Text="100%"
+                                            FontSize="12"
+                                            TextColor="{StaticResource TextSecondary}" />
+                                    </Grid>
+
+                                    <ProgressBar
+                                        Progress="{Binding Brightness, Converter={StaticResource PercentToProgressConverter}}"
+                                        HeightRequest="10"
+                                        BackgroundColor="{StaticResource SurfaceCardAlt}"
+                                        ProgressColor="{StaticResource AccentPrimary}" />
+
+                                    <Label
+                                        Text="{Binding Brightness, StringFormat='Intensité : {0}%'}"
+                                        FontSize="12"
+                                        HorizontalOptions="End"
+                                        TextColor="{StaticResource TextSecondary}" />
+                                </VerticalStackLayout>
+
+                                <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                                    <Button
+                                        Grid.Column="0"
+                                        Text="Allumer"
+                                        Clicked="OnTurnOnClicked"
+                                        BackgroundColor="{StaticResource AccentPrimary}"
+                                        TextColor="{StaticResource TextDark}"
+                                        CornerRadius="16"
+                                        HeightRequest="48"
+                                        FontAttributes="Bold" />
+
+                                    <Button
+                                        Grid.Column="1"
+                                        Text="Éteindre"
+                                        Clicked="OnTurnOffClicked"
+                                        BackgroundColor="{StaticResource ActionNeutral}"
+                                        TextColor="{StaticResource TextPrimary}"
+                                        CornerRadius="16"
+                                        HeightRequest="48" />
+                                </Grid>
+
+                                <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                                    <Button
+                                        Grid.Column="0"
+                                        Text="-10%"
+                                        Clicked="OnDecreaseBrightnessClicked"
+                                        BackgroundColor="{StaticResource SurfaceCardAlt}"
+                                        TextColor="{StaticResource TextPrimary}"
+                                        CornerRadius="16"
+                                        HeightRequest="44" />
+
+                                    <Button
+                                        Grid.Column="1"
+                                        Text="+10%"
+                                        Clicked="OnIncreaseBrightnessClicked"
+                                        BackgroundColor="{StaticResource SurfaceCardAlt}"
+                                        TextColor="{StaticResource TextPrimary}"
+                                        CornerRadius="16"
+                                        HeightRequest="44" />
+                                </Grid>
+
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

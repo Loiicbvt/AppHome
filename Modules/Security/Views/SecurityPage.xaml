@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="HomeAppLBO.Modules.Security.Views.SecurityPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Sécurité"
+    BackgroundColor="{StaticResource SurfacePage}">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="20,16,20,30"
+            Spacing="18">
+
+            <Border
+                Padding="20"
+                BackgroundColor="{StaticResource SurfaceCard}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 24">
+                <VerticalStackLayout Spacing="8">
+                    <Label
+                        Text="Sécurité"
+                        FontSize="28"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextPrimary}" />
+
+                    <Label
+                        Text="Statut général de la maison"
+                        FontSize="15"
+                        TextColor="{StaticResource TextSecondary}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Padding="18"
+                BackgroundColor="{StaticResource SurfaceCard}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 24">
+                <VerticalStackLayout Spacing="14">
+                    <Label
+                        Text="{Binding GlobalStatus}"
+                        FontSize="24"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextPrimary}" />
+
+                    <Label
+                        Text="{Binding GlobalSubtitle}"
+                        FontSize="14"
+                        TextColor="{StaticResource TextSecondary}" />
+
+                    <Border
+                        Padding="12"
+                        BackgroundColor="{StaticResource SurfaceCardAlt}"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 16">
+                        <Label
+                            Text="{Binding AwayModeText}"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource TextPrimary}" />
+                    </Border>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <Button
+                            Grid.Column="0"
+                            Text="Mode absence"
+                            Clicked="OnAwayModeClicked"
+                            BackgroundColor="{StaticResource AccentPrimary}"
+                            TextColor="{StaticResource TextDark}"
+                            CornerRadius="16"
+                            HeightRequest="48"
+                            FontAttributes="Bold" />
+
+                        <Button
+                            Grid.Column="1"
+                            Text="Vérifier"
+                            Clicked="OnRefreshClicked"
+                            BackgroundColor="{StaticResource ActionNeutral}"
+                            TextColor="{StaticResource TextPrimary}"
+                            CornerRadius="16"
+                            HeightRequest="48" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <VerticalStackLayout Spacing="10">
+                <Label
+                    Text="Caméras"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource TextPrimary}" />
+
+                <CollectionView
+                    ItemsSource="{Binding Cameras}"
+                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Margin="0,0,0,12"
+                                Padding="18"
+                                BackgroundColor="{StaticResource SurfaceCard}"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 22">
+
+                                <VerticalStackLayout Spacing="14">
+                                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                        <Border
+                                            WidthRequest="48"
+                                            HeightRequest="48"
+                                            BackgroundColor="{StaticResource SurfaceCardAlt}"
+                                            StrokeThickness="0"
+                                            StrokeShape="RoundRectangle 14">
+                                            <Label
+                                                Text="📷"
+                                                FontSize="24"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center" />
+                                        </Border>
+
+                                        <VerticalStackLayout
+                                            Grid.Column="1"
+                                            Spacing="2">
+                                            <Label
+                                                Text="{Binding Name}"
+                                                FontSize="18"
+                                                FontAttributes="Bold"
+                                                TextColor="{StaticResource TextPrimary}" />
+
+                                            <Label
+                                                Text="{Binding Location}"
+                                                FontSize="13"
+                                                TextColor="{StaticResource TextSecondary}" />
+                                        </VerticalStackLayout>
+
+                                        <Border
+                                            Grid.Column="2"
+                                            Padding="10,6"
+                                            BackgroundColor="{StaticResource SurfaceCardAlt}"
+                                            StrokeThickness="0"
+                                            StrokeShape="RoundRectangle 14"
+                                            VerticalOptions="Center">
+                                            <Label
+                                                Text="{Binding StatusText}"
+                                                FontSize="12"
+                                                FontAttributes="Bold"
+                                                TextColor="{StaticResource TextPrimary}" />
+                                        </Border>
+                                    </Grid>
+
+                                    <Border
+                                        HeightRequest="150"
+                                        BackgroundColor="{StaticResource SurfaceCardAlt}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 18">
+                                        <Grid>
+                                            <Label
+                                                Text="🎥"
+                                                FontSize="34"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center"
+                                                Margin="0,-14,0,0" />
+
+                                            <Label
+                                                Text="{Binding PreviewText}"
+                                                FontSize="14"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center"
+                                                Margin="0,42,0,0"
+                                                TextColor="{StaticResource TextSecondary}" />
+                                        </Grid>
+                                    </Border>
+
+                                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                                        <Button
+                                            Grid.Column="0"
+                                            Text="Ouvrir"
+                                            Clicked="OnCameraOpenClicked"
+                                            BackgroundColor="{StaticResource AccentPrimary}"
+                                            TextColor="{StaticResource TextDark}"
+                                            CornerRadius="16"
+                                            HeightRequest="46"
+                                            FontAttributes="Bold" />
+
+                                        <Button
+                                            Grid.Column="1"
+                                            Text="Plein écran"
+                                            Clicked="OnCameraFullscreenClicked"
+                                            BackgroundColor="{StaticResource ActionNeutral}"
+                                            TextColor="{StaticResource TextPrimary}"
+                                            CornerRadius="16"
+                                            HeightRequest="46" />
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="10">
+                <Label
+                    Text="Éléments surveillés"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource TextPrimary}" />
+
+                <CollectionView
+                    ItemsSource="{Binding Devices}"
+                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Margin="0,0,0,12"
+                                Padding="18"
+                                BackgroundColor="{StaticResource SurfaceCard}"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 22">
+
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                    <Border
+                                        WidthRequest="48"
+                                        HeightRequest="48"
+                                        BackgroundColor="{StaticResource SurfaceCardAlt}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 14">
+                                        <Label
+                                            Text="🔒"
+                                            FontSize="24"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center" />
+                                    </Border>
+
+                                    <VerticalStackLayout
+                                        Grid.Column="1"
+                                        Spacing="2">
+                                        <Label
+                                            Text="{Binding Name}"
+                                            FontSize="18"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource TextPrimary}" />
+
+                                        <Label
+                                            Text="{Binding Location}"
+                                            FontSize="13"
+                                            TextColor="{StaticResource TextSecondary}" />
+                                    </VerticalStackLayout>
+
+                                    <Border
+                                        Grid.Column="2"
+                                        Padding="10,6"
+                                        BackgroundColor="{StaticResource SurfaceCardAlt}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 14"
+                                        VerticalOptions="Center">
+                                        <Label
+                                            Text="{Binding StatusText}"
+                                            FontSize="12"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource TextPrimary}" />
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="10">
+                <Label
+                    Text="Événements récents"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource TextPrimary}" />
+
+                <CollectionView
+                    ItemsSource="{Binding Events}"
+                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Margin="0,0,0,12"
+                                Padding="16"
+                                BackgroundColor="{StaticResource SurfaceCard}"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 22">
+
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                    <Label
+                                        Text="{Binding Icon}"
+                                        FontSize="24"
+                                        VerticalOptions="Center" />
+
+                                    <VerticalStackLayout
+                                        Grid.Column="1"
+                                        Spacing="2">
+                                        <Label
+                                            Text="{Binding Title}"
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            TextColor="{StaticResource TextPrimary}" />
+
+                                        <Label
+                                            Text="{Binding Description}"
+                                            FontSize="13"
+                                            TextColor="{StaticResource TextSecondary}" />
+                                    </VerticalStackLayout>
+
+                                    <Label
+                                        Grid.Column="2"
+                                        Text="{Binding Time, StringFormat='{0:HH:mm}'}"
+                                        FontSize="12"
+                                        VerticalOptions="Center"
+                                        TextColor="{StaticResource TextSecondary}" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

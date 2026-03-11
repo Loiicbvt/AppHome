@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="HomeAppLBO.Modules.Organization.Views.OrganizationPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Organisation"
+    BackgroundColor="{StaticResource SurfacePage}">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="20,16,20,30"
+            Spacing="18">
+
+
+            <!-- HEADER -->
+
+            <Border
+                Padding="20"
+                BackgroundColor="{StaticResource SurfaceCard}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 24">
+
+                <VerticalStackLayout Spacing="8">
+
+                    <Label
+                        Text="Organisation"
+                        FontSize="28"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextPrimary}" />
+
+                    <Label
+                        Text="Calendrier familial et liste de courses"
+                        FontSize="15"
+                        TextColor="{StaticResource TextSecondary}" />
+
+                </VerticalStackLayout>
+
+            </Border>
+
+
+
+            <!-- RESUME -->
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+
+                <Border
+                    Grid.Column="0"
+                    Padding="16"
+                    BackgroundColor="{StaticResource SurfaceCard}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 22">
+
+                    <VerticalStackLayout Spacing="4">
+
+                        <Label
+                            Text="Événements"
+                            FontSize="14"
+                            TextColor="{StaticResource TextSecondary}" />
+
+                        <Label
+                            Text="{Binding EventsSummary}"
+                            FontSize="22"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource TextPrimary}" />
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+
+                <Border
+                    Grid.Column="1"
+                    Padding="16"
+                    BackgroundColor="{StaticResource SurfaceCard}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 22">
+
+                    <VerticalStackLayout Spacing="4">
+
+                        <Label
+                            Text="Courses"
+                            FontSize="14"
+                            TextColor="{StaticResource TextSecondary}" />
+
+                        <Label
+                            Text="{Binding ShoppingSummary}"
+                            FontSize="22"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource TextPrimary}" />
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+            </Grid>
+
+
+
+            <!-- BOUTON ACTUALISER -->
+
+            <Button
+                Text="Actualiser"
+                Clicked="OnRefreshClicked"
+                BackgroundColor="{StaticResource AccentPrimary}"
+                TextColor="{StaticResource TextDark}"
+                CornerRadius="16"
+                HeightRequest="48"
+                FontAttributes="Bold" />
+
+
+
+            <!-- EVENEMENTS -->
+
+            <VerticalStackLayout Spacing="10">
+
+                <Label
+                    Text="Événements familiaux"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource TextPrimary}" />
+
+
+                <CollectionView
+                    ItemsSource="{Binding Events}"
+                    SelectionMode="None">
+
+                    <CollectionView.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <Border
+                                Margin="0,0,0,12"
+                                Padding="18"
+                                BackgroundColor="{StaticResource SurfaceCard}"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 22">
+
+                                <Grid
+                                    ColumnDefinitions="Auto,*,Auto"
+                                    ColumnSpacing="12">
+
+
+                                    <!-- ICON -->
+
+                                    <Border
+                                        WidthRequest="48"
+                                        HeightRequest="48"
+                                        BackgroundColor="{StaticResource SurfaceCardAlt}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 14">
+
+                                        <Label
+                                            Text="{Binding Icon}"
+                                            FontSize="24"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center" />
+
+                                    </Border>
+
+
+
+                                    <!-- EVENT INFO -->
+
+                                    <VerticalStackLayout
+                                        Grid.Column="1"
+                                        Spacing="2">
+
+                                        <Label
+                                            Text="{Binding Title}"
+                                            FontSize="18"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource TextPrimary}" />
+
+                                        <Label
+                                            Text="{Binding Description}"
+                                            FontSize="13"
+                                            TextColor="{StaticResource TextSecondary}" />
+
+                                        <Label
+                                            Text="{Binding Location}"
+                                            FontSize="12"
+                                            TextColor="{StaticResource TextSecondary}" />
+
+                                    </VerticalStackLayout>
+
+
+
+                                    <!-- DATE -->
+
+                                    <VerticalStackLayout
+                                        Grid.Column="2"
+                                        VerticalOptions="Center"
+                                        Spacing="2">
+
+                                        <Label
+                                            Text="{Binding StartDate, StringFormat='{0:dd/MM}'}"
+                                            FontSize="13"
+                                            FontAttributes="Bold"
+                                            HorizontalTextAlignment="End"
+                                            TextColor="{StaticResource TextPrimary}" />
+
+                                        <Label
+                                            Text="{Binding StartDate, StringFormat='{0:HH:mm}'}"
+                                            FontSize="12"
+                                            HorizontalTextAlignment="End"
+                                            TextColor="{StaticResource TextSecondary}" />
+
+                                    </VerticalStackLayout>
+
+
+                                </Grid>
+
+                            </Border>
+
+                        </DataTemplate>
+
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+            </VerticalStackLayout>
+
+
+
+            <!-- LISTE DE COURSES -->
+
+            <VerticalStackLayout Spacing="10">
+
+                <Label
+                    Text="Liste de courses"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource TextPrimary}" />
+
+
+                <!-- AJOUT ARTICLE -->
+
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+
+                    <Entry
+                        Grid.Column="0"
+                        Text="{Binding NewShoppingItemName}"
+                        Placeholder="Ajouter un article"
+                        PlaceholderColor="{StaticResource TextSecondary}"
+                        TextColor="{StaticResource TextPrimary}"
+                        BackgroundColor="{StaticResource SurfaceCard}"
+                        HeightRequest="48" />
+
+
+                    <Button
+                        Grid.Column="1"
+                        Text="Ajouter"
+                        Clicked="OnAddShoppingItemClicked"
+                        BackgroundColor="{StaticResource AccentPrimary}"
+                        TextColor="{StaticResource TextDark}"
+                        CornerRadius="16"
+                        HeightRequest="48"
+                        FontAttributes="Bold" />
+
+                </Grid>
+
+
+
+                <!-- ARTICLES -->
+
+                <CollectionView
+                    ItemsSource="{Binding ShoppingItems}"
+                    SelectionMode="None">
+
+                    <CollectionView.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <Border
+                                Margin="0,0,0,12"
+                                Padding="16"
+                                BackgroundColor="{StaticResource SurfaceCard}"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 20">
+
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnShoppingItemTapped"/>
+                                </Border.GestureRecognizers>
+
+                                <Grid ColumnDefinitions="Auto,*,Auto"
+                                      ColumnSpacing="12">
+
+
+                                    <!-- ICON -->
+
+                                    <Border
+                                        WidthRequest="36"
+                                        HeightRequest="36"
+                                        BackgroundColor="{StaticResource SurfaceCardAlt}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 12">
+
+                                        <Label
+                                            Text="🛒"
+                                            FontSize="18"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"/>
+
+                                    </Border>
+
+
+                                    <!-- NAME -->
+
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding Name}"
+                                        FontSize="16"
+                                        FontAttributes="Bold"
+                                        VerticalOptions="Center"
+                                        TextColor="{StaticResource TextPrimary}" />
+
+
+                                    <!-- QUANTITY -->
+
+                                    <Border
+                                        Grid.Column="2"
+                                        Padding="10,6"
+                                        BackgroundColor="{StaticResource SurfaceCardAlt}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 12"
+                                        VerticalOptions="Center">
+
+                                        <Label
+                                            Text="{Binding QuantityText}"
+                                            FontSize="12"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource TextPrimary}" />
+
+                                    </Border>
+
+                                </Grid>
+
+                            </Border>
+
+                        </DataTemplate>
+
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+            </VerticalStackLayout>
+
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

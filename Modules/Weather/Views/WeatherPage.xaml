@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="HomeAppLBO.Modules.Weather.Views.WeatherPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Météo"
+    BackgroundColor="{StaticResource SurfacePage}">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="20,16,20,30"
+            Spacing="18">
+
+            <!-- EN-TÊTE -->
+            <Border
+                Padding="20"
+                BackgroundColor="{StaticResource SurfaceCard}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 24">
+
+                <VerticalStackLayout Spacing="8">
+                    <Label
+                        Text="Météo"
+                        FontSize="28"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextPrimary}" />
+
+                    <Label
+                        Text="Conditions actuelles et prévisions"
+                        FontSize="15"
+                        TextColor="{StaticResource TextSecondary}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- MÉTÉO ACTUELLE -->
+            <Border
+                Padding="20"
+                BackgroundColor="{StaticResource SurfaceCard}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 24">
+
+                <VerticalStackLayout Spacing="18">
+
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                        <Label
+                            Text="{Binding CurrentIcon}"
+                            FontSize="56"
+                            VerticalOptions="Center" />
+
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            Spacing="4"
+                            VerticalOptions="Center">
+
+                            <Label
+                                Text="{Binding CurrentTemperature}"
+                                FontSize="40"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource TextPrimary}" />
+
+                            <Label
+                                Text="{Binding CurrentCondition}"
+                                FontSize="18"
+                                TextColor="{StaticResource TextSecondary}" />
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <Grid
+                        ColumnDefinitions="*,*,*"
+                        ColumnSpacing="10">
+
+                        <Border
+                            Grid.Column="0"
+                            Padding="12"
+                            BackgroundColor="{StaticResource SurfaceCardAlt}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 18">
+
+                            <VerticalStackLayout Spacing="4">
+                                <Label
+                                    Text="Humidité"
+                                    FontSize="12"
+                                    TextColor="{StaticResource TextSecondary}" />
+
+                                <Label
+                                    Text="{Binding Humidity}"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource TextPrimary}" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border
+                            Grid.Column="1"
+                            Padding="12"
+                            BackgroundColor="{StaticResource SurfaceCardAlt}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 18">
+
+                            <VerticalStackLayout Spacing="4">
+                                <Label
+                                    Text="Vent"
+                                    FontSize="12"
+                                    TextColor="{StaticResource TextSecondary}" />
+
+                                <Label
+                                    Text="{Binding Wind}"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource TextPrimary}" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border
+                            Grid.Column="2"
+                            Padding="12"
+                            BackgroundColor="{StaticResource SurfaceCardAlt}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 18">
+
+                            <VerticalStackLayout Spacing="4">
+                                <Label
+                                    Text="Pression"
+                                    FontSize="12"
+                                    TextColor="{StaticResource TextSecondary}" />
+
+                                <Label
+                                    Text="{Binding Pressure}"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource TextPrimary}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- SOLEIL -->
+            <Border
+                Padding="20"
+                BackgroundColor="{StaticResource SurfaceCard}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 24">
+
+                <VerticalStackLayout Spacing="14">
+                    <Label
+                        Text="Soleil"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextPrimary}" />
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+
+                        <Border
+                            Grid.Column="0"
+                            Padding="14"
+                            BackgroundColor="{StaticResource SurfaceCardAlt}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 18">
+
+                            <VerticalStackLayout Spacing="4">
+                                <Label
+                                    Text="Lever"
+                                    FontSize="13"
+                                    TextColor="{StaticResource TextSecondary}" />
+
+                                <Label
+                                    Text="{Binding SunriseTime}"
+                                    FontSize="22"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource AccentPrimary}" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border
+                            Grid.Column="1"
+                            Padding="14"
+                            BackgroundColor="{StaticResource SurfaceCardAlt}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 18">
+
+                            <VerticalStackLayout Spacing="4">
+                                <Label
+                                    Text="Coucher"
+                                    FontSize="13"
+                                    TextColor="{StaticResource TextSecondary}" />
+
+                                <Label
+                                    Text="{Binding SunsetTime}"
+                                    FontSize="22"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource AccentPrimary}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- PRÉVISIONS HORAIRES -->
+            <Border
+                Padding="20"
+                BackgroundColor="{StaticResource SurfaceCard}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 24">
+
+                <VerticalStackLayout Spacing="14">
+                    <Label
+                        Text="12 prochaines heures"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextPrimary}" />
+
+                    <CollectionView
+                        ItemsSource="{Binding Timeline24h}"
+                        HeightRequest="122"
+                        SelectionMode="None">
+
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout
+                                Orientation="Horizontal"
+                                ItemSpacing="12" />
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    Padding="12"
+                                    WidthRequest="82"
+                                    BackgroundColor="{StaticResource SurfaceCardAlt}"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 18">
+
+                                    <VerticalStackLayout
+                                        Spacing="6"
+                                        HorizontalOptions="Center">
+
+                                        <Label
+                                            Text="{Binding Time, StringFormat='{0:HH:mm}'}"
+                                            FontSize="13"
+                                            HorizontalOptions="Center"
+                                            TextColor="{StaticResource TextSecondary}" />
+
+                                        <Label
+                                            Text="{Binding WeatherIcon}"
+                                            FontSize="24"
+                                            HorizontalOptions="Center" />
+
+                                        <Label
+                                            Text="{Binding TemperatureCelsius, StringFormat='{0}°'}"
+                                            FontSize="15"
+                                            FontAttributes="Bold"
+                                            HorizontalOptions="Center"
+                                            TextColor="{StaticResource TextPrimary}" />
+                                    </VerticalStackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- PRÉVISIONS 7 JOURS -->
+            <Border
+                Padding="20"
+                BackgroundColor="{StaticResource SurfaceCard}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 24">
+
+                <VerticalStackLayout Spacing="14">
+                    <Label
+                        Text="Prévisions 7 jours"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextPrimary}" />
+
+                    <CollectionView
+                        ItemsSource="{Binding DailyForecasts}"
+                        SelectionMode="None">
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                                    Padding="0,8"
+                                    ColumnDefinitions="*,Auto,Auto"
+                                    ColumnSpacing="10">
+
+                                    <Label
+                                        Text="{Binding Date, StringFormat='{0:dddd}'}"
+                                        FontSize="16"
+                                        TextColor="{StaticResource TextPrimary}"
+                                        VerticalOptions="Center" />
+
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding WeatherIcon}"
+                                        FontSize="22"
+                                        VerticalOptions="Center" />
+
+                                    <HorizontalStackLayout
+                                        Grid.Column="2"
+                                        Spacing="6"
+                                        VerticalOptions="Center">
+
+                                        <Label
+                                            Text="{Binding MinTemperatureCelsius, StringFormat='{0}°'}"
+                                            FontSize="15"
+                                            TextColor="{StaticResource TextSecondary}" />
+
+                                        <Label
+                                            Text="/"
+                                            FontSize="15"
+                                            TextColor="{StaticResource TextSecondary}" />
+
+                                        <Label
+                                            Text="{Binding MaxTemperatureCelsius, StringFormat='{0}°'}"
+                                            FontSize="15"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource TextPrimary}" />
+                                    </HorizontalStackLayout>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- RADAR -->
+            <Border
+                Padding="20"
+                BackgroundColor="{StaticResource SurfaceCard}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 24">
+
+                <VerticalStackLayout Spacing="14">
+                    <Label
+                        Text="Radar pluie"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextPrimary}" />
+
+                    <Border
+                        HeightRequest="260"
+                        BackgroundColor="{StaticResource SurfaceCardAlt}"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 20">
+
+                        <WebView
+                            x:Name="RadarWebView"
+                            HorizontalOptions="Fill"
+                            VerticalOptions="Fill" />
+                    </Border>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
